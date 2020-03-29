@@ -10,9 +10,7 @@ def download_pages_soup(website,page):
     soup = BeautifulSoup(source_text, 'lxml')
     return soup
 
-def get_page_count(job,loc):
-    source_text = requests.get('https://de.indeed.com/jobs?q='+job+'&l='+loc).text
-    soup = BeautifulSoup(source_text, 'lxml')
+def get_page_count(soup):
     page_count_text = soup.find('div',id='searchCountPages')
     page_count_text = page_count_text.text
     page_count_text = page_count_text.strip().split(' ')
@@ -34,8 +32,7 @@ def job_in_nogo(job_title,nogo_list):
 
 class Job_List:
 
-    def __init__(self,page_count,job,loc,nogo_list,csv_writer,short):
-        self.page_count = page_count
+    def __init__(self,job,loc,nogo_list,csv_writer,short):
         self.job = job
         self.loc = loc
         self.nogo_list = nogo_list
@@ -53,6 +50,7 @@ class Job_List:
             for counter,fut in enumerate(concurrent.futures.as_completed(output)):
                 ProgressBar1.progress(counter, self.page_count, status=f'Downloading {self.page_count} Webpages')
         print(" ")
+        page_count = get_page_count(output[0])
         for idx,f in enumerate(output):
             ProgressBar2.progress(idx, self.page_count, status='Scraping webpages')
             soup = f.result()
@@ -107,12 +105,11 @@ if __name__ == "__main__":
     loc = options.location
     short = options.raw_data
     nogo_list = []#["marketing","audi","recruiting","lidl","personalwesen", "hr","human resources","social media"]
-    page_count = get_page_count(job,loc)
 
     csv_file = open("output_concurrent.csv", "w",newline='')
     csv_writer = csv.writer(csv_file,delimiter=',')
     csv_writer.writerow(['Job_Title','Company','Salary','Link'])
 
-    Job_List = Job_List(page_count,job,loc,nogo_list,csv_writer, short)
+    Job_List = Job_List(job,loc,nogo_list,csv_writer, short)
     Job_List.create_job_list()
     csv_file.close()
