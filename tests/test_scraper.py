@@ -7,10 +7,10 @@ from indeed.indeed_scraper import get_page_count
 
 '''
 To run the test call from the jobscraper folder
-$python -m unittest tests/unit/test_scraper.py -v
+$python -m unittest tests/test_scraper.py -v
 
 To run coverage test run
-$coverage run -m unittest tests/unit/test_scraper.py -v
+$coverage run -m unittest tests/test_scraper.py -v
 $coverage report --omit=*/lib/*
 '''
 
