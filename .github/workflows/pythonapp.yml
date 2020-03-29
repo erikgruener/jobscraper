@@ -34,6 +34,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unittest
       run: |
-        python -m unittest tests/unit/test_scraper.py -v
-        coverage run -m unittest tests/unit/test_scraper.py -v
+        python -m unittest tests/test_scraper.py -v
+        coverage run -m unittest tests/test_scraper.py -v
         coverage report --omit=*/lib/*
