@@ -38,6 +38,5 @@ class TestScraper(unittest.TestCase):
         number = get_page_count(soup)
         self.assertEqual(number,142)
 
-
 if __name__ == '__main__':
     unittest.main()
