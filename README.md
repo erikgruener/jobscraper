@@ -1,6 +1,6 @@
 # Job Scraper   
 
-[![Build Status]()]()
+![](https://github.com/erikgruener/jobscraper/workflows/Unittest/badge.svg)
 
 Tired of clicking through pages and not being able to apply filters. Me too. So here some code to scrape indeed.com jobs and create a csv for you to sort as you wish.  
 
